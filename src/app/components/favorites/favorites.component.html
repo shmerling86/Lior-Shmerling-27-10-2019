@@ -1,0 +1,26 @@
+<p class="title">Favorites</p>
+<div class="favorites">
+    <p [style.width.%]='100' *ngIf='mainService.favorites.length == 0; else favorite' class="alert alert-danger">There
+        are no favorites!</p>
+    <ng-template #favorite>
+        <div class="favorite" *ngFor='let favorite of mainService.favorites; let i = index'
+            (click)='mainService.addToMain(favorite["key"], i)'>
+            <div class="img-wrapper">
+                <img (click)='mainService.removeFromFavorites(i);showSuccess()'
+                    src="https://img.icons8.com/ultraviolet/40/000000/unpin.png">
+            </div>
+            <div class="data-wrapper">
+                <div class="img">
+                    <img src="https://developer.accuweather.com/sites/default/files/{{favorite.extNum}}{{favorite.favoriteIcon}}-s.png">
+                </div>
+                <div class="data">
+                    <span>{{ favorite.isDayTime == true ? 'Good morning' : 'Good evening' }} in
+                        {{ favorite.name }}</span>
+                    <b>{{ favorite.currWeatherText }} {{ favorite.temp }}&#8451;</b>
+                    <span class="text-muted">Chance of precipitation:
+                        {{ favorite.precipitation == true ? 'Yes' : 'No' }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

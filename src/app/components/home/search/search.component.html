@@ -1,0 +1,19 @@
+<div class="search-wraper">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="mainService.text"
+            (ngModelChange)='mainService.getCitiesWeather($event)' (keypress)="checkLang($event)" autofocus />
+        <div class="result-box">
+            <ul class="list-group mb-1">
+                <li *ngFor='let city of mainService.resultStack' class="list-group-item"
+                    (click)='mainService.selectedResult(city["cityName"])'>
+                    <span>{{ city['cityName']['LocalizedName'] }}</span>
+                    <img *ngIf="mainService.isDisabled(city['cityName']['LocalizedName'])" src="https://img.icons8.com/color/48/000000/like.png ">
+                </li>
+                <li *ngIf='mainService.text.length !== 0 && mainService.resultStack.length === 0'
+                    class="list-group-item ">
+                    No results containing your search terms.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

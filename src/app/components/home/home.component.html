@@ -1,0 +1,41 @@
+<app-search></app-search>
+<div class="main">
+    <div class="first-row">
+        <div>
+            <div class="img-wrapper">
+                <img src="https://developer.accuweather.com/sites/default/files/{{mainService.extNum}}{{mainService.weatherIconNum}}-s.png">
+            </div>
+            <div class="data-wrapper">
+                <span>{{ mainService.currCity }}</span>
+                <span>{{ mainService.temp }}&#8451;</span>
+            </div>
+        </div>
+        <div class="addToFavorites">
+            <span [class.disabled]="mainService.isDisabled(mainService.currCity)">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/pin.png">
+                <a (click)='
+                !mainService.isDisabled(mainService.currCity) && showSuccess();
+                !mainService.isDisabled(mainService.currCity) && mainService.addToFavorites();
+                '>
+                    Add to favorites
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="mid-row">
+        <h5 class="font-weight-bold">Current Weather</h5>
+        <p class="text-muted"> {{ mainService.weatherText }} </p>
+    </div>
+    <div class="last-row">
+        <div class="week">
+            <div class="day" *ngFor='let day of mainService.weekWeather' [style.background-color]="
+            day.dayTempMax  >= 20 && day.dayTempMax <=25 ? '#ffc300' :
+            day.dayTempMax  < 20 ? '#007bff' :
+            day.dayTempMax  > 25 ? '#ff5e00': '#fff' ">
+                <b>{{ day.currDate }}</b>
+                <img src="https://developer.accuweather.com/sites/default/files/{{day.extraNum}}{{day.dayWeatherIconNum}}-s.png">
+                <span>{{ day.dayTempMin }}&#8451; - {{ day.dayTempMax }}&#8451;</span>
+            </div>
+        </div>
+    </div>
+</div>
